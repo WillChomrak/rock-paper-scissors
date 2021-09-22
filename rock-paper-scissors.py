@@ -5,6 +5,7 @@
 # a func to take an input
 # a func to randomly choose a r/p/s
 # a func to compare both and return the winner
+# an engine function
 
 import random
 
@@ -31,6 +32,43 @@ def compChoice():
     selection = fighters[randNum]
     return selection
 
+# ok now is the tricky part. How do I get this to compare the two choices and determine the winner?
+def fight(playerChoice, compChoice):
+    if playerChoice == compChoice:
+        return "draw"
+    # if player chooses rock
+    if playerChoice == "rock":
+        # rock beats scissors
+        if compChoice == "scissors":
+            return "winner"
+        # rock doesn't beat paper
+        else:
+            return "loser"
+    # if player chooses paper
+    elif playerChoice == "paper":
+        # paper beats rock
+        if compChoice == "rock":
+            return "winner"
+        # paper doesn't beat scissors
+        else:
+            return "loser"
+    # if player chosses scissors
+    else:
+        # scissors beats paper
+        if compChoice == "paper":
+            return "winner"
+        # scissors doesn't beat rock
+        else:
+            return "loser"
 
+def gameEngine():
+    # get player choice
+    pChoice = playerChoice()
+    print("You chose: ", pChoice)
+    # get comp choice
+    cChoice = compChoice()
+    print("The computer chose: ", cChoice)
+    # compare choices for winner
+    print(fight(pChoice, cChoice))
 
-     
+gameEngine()
