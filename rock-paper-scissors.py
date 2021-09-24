@@ -10,6 +10,7 @@
 import random
 
 fighters = ['rock', 'paper', 'scissors']
+score = [0, 0]
 
 # func to take request and take input from user 
 # and to check if user has input one of 3 options
@@ -33,6 +34,7 @@ def compChoice():
     return selection
 
 # ok now is the tricky part. How do I get this to compare the two choices and determine the winner?
+# This could be a boolean ... maybe ... how would I record a draw?
 def fight(playerChoice, compChoice):
     if playerChoice == compChoice:
         return "draw"
@@ -61,6 +63,29 @@ def fight(playerChoice, compChoice):
         else:
             return "loser"
 
+def playAgain():
+    # retrieve input from user: play again y/n
+    again = input("Would you like to play againg (y/n)").lower()
+    # if yes run game engine
+    if again == "y" or again == "yes":
+        gameEngine()
+    # if no do nothing (later change this to print final score)
+    elif again == "n" or again == "no":
+        return
+    # if incorrect input print message and re-run playAgain()
+    else:
+        print("Input not recognized. Please enter 'y' or 'n' exactly")
+        playAgain()
+
+def incrementScore(result):
+    # if user wins add a point to their score
+    if result == "winner":
+        score[0] += 1
+    # if comp wins add a point to it's score
+    elif result == "loser":
+        score[1] += 1
+
+# This engine runs all the other functions
 def gameEngine():
     # get player choice
     pChoice = playerChoice()
@@ -69,6 +94,14 @@ def gameEngine():
     cChoice = compChoice()
     print("The computer chose: ", cChoice)
     # compare choices for winner
-    print(fight(pChoice, cChoice))
+    result = fight(pChoice, cChoice)
+    print(result)
+    # change score based on results
+    incrementScore(result)
+    # print current score to screen
+    print("Score: You - {}, Computer - {}".format(score[0], score[1]))
+    # ask user to play again
+    playAgain()
 
 gameEngine()
+
